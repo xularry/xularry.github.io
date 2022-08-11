@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Video user study</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="FileSaver.js"></script>
+<style>
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+.slideshow-container {
+  max-width: 1920px;
+  position: relative;
+  margin: auto;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: -10px;
+  margin-top: -22px;
+  color: blue;
+  font-weight: bold;
+  font-size: 38px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0);
+}
+.text {
+  text-align: center;
+}
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 5%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.active, .dot:hover {
+  background-color: #717171;
+}
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px},
+   .column {
+        width: 100%;
+    }
+}
+.column {
+    float: left;
+    width: 32%;
+    padding: 5px;
+}
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+#div_in {
+    float: left;
+    width: 480px;
+    height: 256px;
+    margin: 1px;
+    padding: 1px;
+    border: 1px dotted black;
+}
+.div {
+    float: left;
+    width: 480px;
+    height: 270px;
+    margin: 1px;
+    padding: 1px;
+    border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<div class="slideshow-container">
+<p>Super-Resolution User Study</p>
+<p>请将视觉效果最好的第一、二、三张图依次拖入最下方的top1、top2、top3的方框中。</p>
+<p>当图较小区分不出区别时，鼠标右键依次点击图像->在新的标签页中打开可查看大图->Ctrl(或command)+数字键可以快捷切换标签便于比较。</p>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn1" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/00007.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video1" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn2" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/00007.png" draggable=true ondragstart="drag(event)" id="PDM/video2" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn3" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/00007.png" draggable=true ondragstart="drag(event)" id="LDL/video3" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn4" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/00007.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video4" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn5" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/00007.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video5" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn6" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/00007.png" draggable=true ondragstart="drag(event)" id="ours2/video6" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div2" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div3" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn7" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/00014.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video7" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn8" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/00014.png" draggable=true ondragstart="drag(event)" id="LDL/video8" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn9" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/00014.png" draggable=true ondragstart="drag(event)" id="PDM/video9" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn10" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/00014.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video10" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn11" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/00014.png" draggable=true ondragstart="drag(event)" id="ours2/video11" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn12" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/00014.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video12" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div4" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div5" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div6" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn13" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/00018.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video13" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn14" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/00018.png" draggable=true ondragstart="drag(event)" id="ours2/video14" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn15" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/00018.png" draggable=true ondragstart="drag(event)" id="LDL/video15" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn16" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/00018.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video16" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn17" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/00018.png" draggable=true ondragstart="drag(event)" id="PDM/video17" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn18" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/00018.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video18" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div7" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div8" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div9" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn19" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/00022.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video19" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn20" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/00022.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video20" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn21" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/00022.png" draggable=true ondragstart="drag(event)" id="ours2/video21" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn22" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/00022.png" draggable=true ondragstart="drag(event)" id="LDL/video22" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn23" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/00022.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video23" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn24" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/00022.png" draggable=true ondragstart="drag(event)" id="PDM/video24" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div10" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div11" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div12" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn25" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/00047.png" draggable=true ondragstart="drag(event)" id="LDL/video25" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn26" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/00047.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video26" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn27" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/00047.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video27" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn28" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/00047.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video28" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn29" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/00047.png" draggable=true ondragstart="drag(event)" id="ours2/video29" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn30" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/00047.png" draggable=true ondragstart="drag(event)" id="PDM/video30" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div13" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div14" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div15" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn31" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/00050.png" draggable=true ondragstart="drag(event)" id="PDM/video31" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn32" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/00050.png" draggable=true ondragstart="drag(event)" id="ours2/video32" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn33" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/00050.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video33" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn34" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/00050.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video34" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn35" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/00050.png" draggable=true ondragstart="drag(event)" id="LDL/video35" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn36" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/00050.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video36" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div16" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div17" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div18" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn37" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/00060.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video37" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn38" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/00060.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video38" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn39" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/00060.png" draggable=true ondragstart="drag(event)" id="PDM/video39" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn40" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/00060.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video40" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn41" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/00060.png" draggable=true ondragstart="drag(event)" id="LDL/video41" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn42" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/00060.png" draggable=true ondragstart="drag(event)" id="ours2/video42" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div19" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div20" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div21" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn43" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/00074.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video43" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn44" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/00074.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video44" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn45" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/00074.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video45" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn46" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/00074.png" draggable=true ondragstart="drag(event)" id="ours2/video46" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn47" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/00074.png" draggable=true ondragstart="drag(event)" id="LDL/video47" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn48" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/00074.png" draggable=true ondragstart="drag(event)" id="PDM/video48" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div22" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div23" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div24" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn49" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/00087.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video49" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn50" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/00087.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video50" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn51" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/00087.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video51" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn52" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/00087.png" draggable=true ondragstart="drag(event)" id="PDM/video52" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn53" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/00087.png" draggable=true ondragstart="drag(event)" id="LDL/video53" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn54" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/00087.png" draggable=true ondragstart="drag(event)" id="ours2/video54" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div25" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div26" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div27" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn55" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/00097.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video55" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn56" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/00097.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video56" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn57" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/00097.png" draggable=true ondragstart="drag(event)" id="ours2/video57" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn58" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/00097.png" draggable=true ondragstart="drag(event)" id="PDM/video58" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn59" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/00097.png" draggable=true ondragstart="drag(event)" id="LDL/video59" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn60" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/00097.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video60" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div28" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div29" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div30" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn61" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/Canon_004_LR4.png" draggable=true ondragstart="drag(event)" id="LDL/video61" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn62" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/Canon_004_LR4.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video62" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn63" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/Canon_004_LR4.png" draggable=true ondragstart="drag(event)" id="ours2/video63" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn64" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/Canon_004_LR4.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video64" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn65" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/Canon_004_LR4.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video65" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn66" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/Canon_004_LR4.png" draggable=true ondragstart="drag(event)" id="PDM/video66" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div31" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div32" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div33" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn67" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/Canon_022_LR4.png" draggable=true ondragstart="drag(event)" id="PDM/video67" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn68" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/Canon_022_LR4.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video68" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn69" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/Canon_022_LR4.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video69" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn70" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/Canon_022_LR4.png" draggable=true ondragstart="drag(event)" id="ours2/video70" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn71" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/Canon_022_LR4.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video71" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn72" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/Canon_022_LR4.png" draggable=true ondragstart="drag(event)" id="LDL/video72" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div34" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div35" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div36" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn73" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/Canon_043_LR4.png" draggable=true ondragstart="drag(event)" id="ours2/video73" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn74" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/Canon_043_LR4.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video74" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn75" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/Canon_043_LR4.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video75" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn76" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/Canon_043_LR4.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video76" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn77" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/Canon_043_LR4.png" draggable=true ondragstart="drag(event)" id="PDM/video77" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn78" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/Canon_043_LR4.png" draggable=true ondragstart="drag(event)" id="LDL/video78" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div37" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div38" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div39" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn79" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/Nikon_007_LR4.png" draggable=true ondragstart="drag(event)" id="ours2/video79" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn80" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/Nikon_007_LR4.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video80" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn81" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/Nikon_007_LR4.png" draggable=true ondragstart="drag(event)" id="LDL/video81" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn82" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/Nikon_007_LR4.png" draggable=true ondragstart="drag(event)" id="PDM/video82" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn83" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/Nikon_007_LR4.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video83" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn84" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/Nikon_007_LR4.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video84" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div40" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div41" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div42" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn85" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/Nikon_013_LR4.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video85" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn86" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/Nikon_013_LR4.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video86" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn87" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/Nikon_013_LR4.png" draggable=true ondragstart="drag(event)" id="ours2/video87" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn88" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/Nikon_013_LR4.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video88" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn89" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/Nikon_013_LR4.png" draggable=true ondragstart="drag(event)" id="LDL/video89" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn90" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/Nikon_013_LR4.png" draggable=true ondragstart="drag(event)" id="PDM/video90" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div43" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div44" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div45" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn91" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/Nikon_014_LR4.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video91" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn92" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/Nikon_014_LR4.png" draggable=true ondragstart="drag(event)" id="PDM/video92" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn93" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/Nikon_014_LR4.png" draggable=true ondragstart="drag(event)" id="ours2/video93" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn94" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/Nikon_014_LR4.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video94" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn95" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/Nikon_014_LR4.png" draggable=true ondragstart="drag(event)" id="LDL/video95" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn96" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/Nikon_014_LR4.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video96" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div46" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div47" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div48" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn97" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/Nikon_047_LR4.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video97" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn98" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/Nikon_047_LR4.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video98" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn99" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/Nikon_047_LR4.png" draggable=true ondragstart="drag(event)" id="ours2/video99" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn100" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/Nikon_047_LR4.png" draggable=true ondragstart="drag(event)" id="PDM/video100" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn101" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/Nikon_047_LR4.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video101" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn102" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/Nikon_047_LR4.png" draggable=true ondragstart="drag(event)" id="LDL/video102" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div49" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div50" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div51" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn103" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/OST_233.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video103" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn104" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/OST_233.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video104" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn105" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/OST_233.png" draggable=true ondragstart="drag(event)" id="PDM/video105" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn106" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/OST_233.png" draggable=true ondragstart="drag(event)" id="ours2/video106" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn107" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/OST_233.png" draggable=true ondragstart="drag(event)" id="LDL/video107" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn108" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/OST_233.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video108" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div52" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div53" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div54" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn109" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/OST_294.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video109" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn110" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/OST_294.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video110" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn111" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/OST_294.png" draggable=true ondragstart="drag(event)" id="PDM/video111" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn112" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/OST_294.png" draggable=true ondragstart="drag(event)" id="LDL/video112" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn113" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/OST_294.png" draggable=true ondragstart="drag(event)" id="ours2/video113" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn114" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/OST_294.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video114" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div55" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div56" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div57" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<div class="row">
+<div class="column">
+<div id="divIn115" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="LDL/OST_296.png" draggable=true ondragstart="drag(event)" id="LDL/video115" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn116" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="RealSR_DPED/OST_296.png" draggable=true ondragstart="drag(event)" id="RealSR_DPED/video116" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn117" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="Real-ESRGAN/OST_296.png" draggable=true ondragstart="drag(event)" id="Real-ESRGAN/video117" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn118" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="BSRGAN/OST_296.png" draggable=true ondragstart="drag(event)" id="BSRGAN/video118" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn119" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="ours2/OST_296.png" draggable=true ondragstart="drag(event)" id="ours2/video119" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+<div class="column">
+<div id="divIn120" ondrop="drop(event)" ondragover="allowDrop(event)">
+<img src="PDM/OST_296.png" draggable=true ondragstart="drag(event)" id="PDM/video120" style="width: 500px; height: auto; object-fit: contain;">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="div" id="div58" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div59" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+<div class="column">
+<div class="div" id="div60" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 500px; height: 500px; object-fit: contain;">
+<input type="hidden" value="t1"/>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="column">
+<div class="text">Top 1</div>
+</div>
+<div class="column">
+<div class="text">Top 2</div>
+</div>
+<div class="column">
+<div class="text">Top 3</div>
+</div>
+</div>
+</div>
+<div class="mySlides fade">
+<h2>Complete : Thank you for your time! Please submit the results as a text file.</h2>
+<input type="button" width="400" height="80" align="center" onclick="myFunction()" value="Submit Result">
+</div>
+</div>
+</div>
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+  <span class="dot" onclick="currentSlide(4)"></span>
+  <span class="dot" onclick="currentSlide(5)"></span>
+  <span class="dot" onclick="currentSlide(6)"></span>
+  <span class="dot" onclick="currentSlide(7)"></span>
+  <span class="dot" onclick="currentSlide(8)"></span>
+  <span class="dot" onclick="currentSlide(9)"></span>
+  <span class="dot" onclick="currentSlide(10)"></span>
+  <span class="dot" onclick="currentSlide(11)"></span>
+  <span class="dot" onclick="currentSlide(12)"></span>
+  <span class="dot" onclick="currentSlide(13)"></span>
+  <span class="dot" onclick="currentSlide(14)"></span>
+ <span class="dot" onclick="currentSlide(15)"></span>
+</div>
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+     dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+  if (ev.target.id != "div_in")
+  {
+    var divNode = document.getElementById(ev.target.id);
+    var inputNodes = divNode.getElementsByTagName('input');
+    inputNodes[0].value = data
+  }
+}
+function myFunction() {
+  var id;
+  var result = "";
+  for (id = 1; id <= 60; id++) {
+    divName = "div" + id
+    var divNode = document.getElementById(divName);
+    var inputNodes = divNode.getElementsByTagName('input');
+    result = result + divName + " " + inputNodes[0].value+"\n"
+  }
+  var file = new File([result], "video_prop_yourname.txt", {type: "text/plain;charset=utf-8"});
+  saveAs(file);
+}
+</script>
+</body>
+<html>
